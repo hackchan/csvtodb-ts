@@ -1,0 +1,17 @@
+{
+  "type": "mssql",
+  "host": "192.168.18.12",
+  "port": 1433,
+  "username": "hackchan",
+  "password": "F62856far1981**",
+  "database": "appStore",
+  "synchronize": true,
+  "retryDelay": 3000,
+  "retryAttempts": 10,
+
+  "logging": false,
+  "entities": ["dist/entity/**/*.js"],
+  "migrations": ["dist/migration/**/*.js"],
+  "subscribers": ["dist/subscriber/**/*.js"]
+
+}
