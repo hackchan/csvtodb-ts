@@ -1,6 +1,7 @@
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
 import boom from '@hapi/boom'
+import { validate } from "class-validator";
 
 class UserService {
   constructor(){
@@ -8,11 +9,16 @@ class UserService {
   }
   async create(data:object) {
    try {
-    const newUser= getRepository(User).create(data)
-    const result = await getRepository(User).save(newUser)
+    const repo = getRepository(User)
+    const newUser= repo.create(data)
+    const errors = await validate(newUser)
+    if(errors.length !== 0) {
+      const {constraints}=errors[0]
+      throw [constraints]
+    }
+    const result = await repo.save(newUser)
     return result
    } catch (error) {
-     console.log('error go go:', error)
      throw error
    }
   }

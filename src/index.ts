@@ -10,9 +10,8 @@ import {
   errorHandler,
 } from './middlewares/errors'
 const app = express()
-createConnection()
-
-// Middlewares
+createConnection().then(async connection=>{
+  // Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
@@ -26,5 +25,19 @@ app.use(authRoutes);
 app.use(boomErroHandler)
 app.use(errorHandler)
 
-app.listen(3000);
-console.log('Server on port', 3000);
+const server = app.listen(3000, ()=>{
+  console.log('Server on port', 3000);
+});
+process.on('SIGTERM', () => {
+  server.close(() => {
+    console.log('Process terminated')
+  })
+})
+}).catch((err)=>{
+  console.log(err)
+  process.kill(process.pid, 'SIGTERM')
+})
+
+
+
+

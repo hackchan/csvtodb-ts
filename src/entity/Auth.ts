@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm'
-import { MinLength, MaxLength, IsString } from 'class-validator';
+import { MinLength, MaxLength, IsString, IsArray, ArrayNotEmpty, IsNotEmpty,ValidateNested } from 'class-validator';
 @Entity()
 export class Auth {
   @PrimaryGeneratedColumn()
@@ -20,11 +20,15 @@ export class Auth {
   password: string;
 
 
-  @Column({nullable:false})
-  @IsString()
-  @MinLength(3)
-  @MinLength(10)
-  role: string;
+  @Column("simple-array", { default: "",nullable: false })
+  @IsString({each: true})
+  @ArrayNotEmpty()
+  @IsArray()
+  @IsNotEmpty()
+
+ 
+
+  role: string[];
 
   //  async updatePassword(password:any): Promise<void> {
   //   if (!!password) {

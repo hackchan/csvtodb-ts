@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn, Index} from 'typeorm'
-import {IsEmail} from "class-validator";
+import {IsEmail, IsUrl, IsOptional, IsDateString} from "class-validator";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -12,6 +12,7 @@ export class User {
   lastName: string;
 
   @Column({nullable:false,  unique: true})
+  
   phone: string;
 
   @Column({nullable:false, unique:true})
@@ -20,9 +21,12 @@ export class User {
 
   @Column({nullable:true})
   @Index({ unique: true, where: "image IS NOT NULL" })
+  @IsOptional()
+  @IsUrl()
   image?: string;
 
-  @Column({type: 'datetime', default: 'now()',name:'created_at'})
+  @Column({nullable:false})
+  @IsDateString()
   createdAt?: Date;
 
 }
