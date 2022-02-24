@@ -25,7 +25,11 @@ class UserService {
 
   async findAll() {
     try {
-     const users= await getRepository(User).find()
+     const users= await getRepository(User).find({ relations: ["auth"] })
+    //  const users = await  getRepository(User)
+    //  .createQueryBuilder("user")
+    //  .leftJoinAndSelect("user.auth", "auth")
+    //  .getMany();
      return users
     } catch (error) {
       throw error
@@ -45,16 +49,24 @@ class UserService {
   }
 
   async update(id:number, changes : object) {
+    try {
     const user = await this.findOne(id)
     getRepository(User).merge(user, changes)
     const result = await getRepository(User).save(user)
     return result
+    } catch (error) {
+      throw error
+    }
   }
 
   async delete(id:number) {
-    const user = await this.findOne(id)
-    const result = await getRepository(User).delete(user)
-    return result
+    try {
+      const user = await this.findOne(id)
+      const result = await getRepository(User).remove(user)
+      return result
+    } catch (error) {
+      throw error
+    }
   }
 }
 

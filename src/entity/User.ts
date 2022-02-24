@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn, Index} from 'typeorm'
-import {IsEmail, IsUrl, IsOptional, IsDateString} from "class-validator";
+import {Entity, Column, PrimaryGeneratedColumn, Index,OneToOne,CreateDateColumn,UpdateDateColumn, JoinColumn} from 'typeorm'
+import {IsEmail, IsUrl, IsOptional} from "class-validator";
+import {Auth} from './Auth'
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -25,9 +26,16 @@ export class User {
   @IsUrl()
   image?: string;
 
-  @Column({nullable:false})
-  @IsDateString()
+
+  @CreateDateColumn()
   createdAt?: Date;
+
+  @UpdateDateColumn()
+  updatedAt?: Date 
+
+  @OneToOne(() => Auth,auth => auth.user,{cascade:true,onDelete: "CASCADE"})
+  @JoinColumn({name:'auth_id'})
+  auth: Auth;
 
 }
 

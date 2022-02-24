@@ -28,7 +28,7 @@ class AuthService {
 
   async findAll() {
     try {
-     const Auths= await getRepository(Auth).find()
+     const Auths= await getRepository(Auth).find({ relations: ["user"]})
      return Auths
     } catch (error) {
       throw error
@@ -56,7 +56,7 @@ class AuthService {
 
   async delete(id:number) {
     const auth = await this.findOne(id)
-    const result = await getRepository(Auth).delete(auth)
+    const result = await getRepository(Auth).remove(auth)
     return result
   }
 }

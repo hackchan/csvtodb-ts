@@ -1,5 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm'
-import { MinLength, MaxLength, IsString, IsArray, ArrayNotEmpty, IsNotEmpty,ValidateNested } from 'class-validator';
+import {Entity, Column, PrimaryGeneratedColumn,OneToOne} from 'typeorm'
+import { MinLength, MaxLength, IsString, IsArray, ArrayNotEmpty, IsNotEmpty} from 'class-validator';
+import {User} from './User'
 @Entity()
 export class Auth {
   @PrimaryGeneratedColumn()
@@ -25,11 +26,11 @@ export class Auth {
   @ArrayNotEmpty()
   @IsArray()
   @IsNotEmpty()
-
- 
-
   role: string[];
 
+  @OneToOne(() => User, user => user.auth,{ onDelete: "CASCADE"}) // specify inverse side as a second parameter
+  user: User;
+  
   //  async updatePassword(password:any): Promise<void> {
   //   if (!!password) {
   //     this.password = await bcrypt.hash(password, 10);
