@@ -1,6 +1,7 @@
-import {Entity, Column, PrimaryGeneratedColumn, Index,OneToOne,CreateDateColumn,UpdateDateColumn, JoinColumn} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, Index,OneToOne,CreateDateColumn,UpdateDateColumn, JoinColumn, OneToMany} from 'typeorm'
 import {IsEmail, IsUrl, IsOptional} from "class-validator";
 import {Auth} from './Auth'
+import { Department } from './Department';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -13,7 +14,7 @@ export class User {
   lastName: string;
 
   @Column({nullable:false,  unique: true})
-  
+
   phone: string;
 
   @Column({nullable:false, unique:true})
@@ -31,11 +32,16 @@ export class User {
   createdAt?: Date;
 
   @UpdateDateColumn()
-  updatedAt?: Date 
+  updatedAt?: Date
 
-  @OneToOne(() => Auth,auth => auth.user,{cascade:true,onDelete: "CASCADE"})
-  @JoinColumn({name:'auth_id'})
-  auth: Auth;
+  // @OneToOne(() => Auth,auth => auth.user,{cascade:true,onDelete: "CASCADE"})
+  // @JoinColumn({name:'auth_id'})
+  // auth: Auth;
 
+   @OneToOne(() => Auth, auth => auth.user,{ onDelete: "CASCADE"}) // specify inverse side as a second parameter
+   auth: Auth;
+
+   @OneToMany(()=> Department, department=> department.user)
+   departments: Department[]
 }
 

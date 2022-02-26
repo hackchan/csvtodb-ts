@@ -4,6 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "typeorm": "ts-node ./node_modules/.bin/typeorm",
+    "migration:generate": "npm run build && npm run typeorm migration:generate -- -n",
+    "migration:run": "npm run build && npm run typeorm migration:run",
+    "migration:run2": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run",
+
+    "migration:show": "npm run typeorm migration:show",
+    "migrations:revert": "sequelize-cli db:migrate:undo",
+    "migrations:delete": "sequelize-cli db:migrate:undo:all",
+    "seed:generate": "sequelize-cli seed:generate --name",
+    "seed:run": "sequelize-cli db:seed:all --debug",
     "build": "tsc",
     "start": "node dist/index",
     "dev": "tsc-watch --onSuccess \"node dist/index.js\""
@@ -20,6 +30,7 @@
     "morgan": "^1.10.0",
     "mssql": "^6.4.0",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.5.0",
     "typeorm": "^0.2.43"
   },
   "devDependencies": {

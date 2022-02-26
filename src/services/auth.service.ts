@@ -7,7 +7,7 @@ class AuthService {
   constructor(){
 
   }
-  async create(data:object) {
+  async create(data:object): Promise<Auth> {
    try {
 
     const repo = getRepository(Auth)
@@ -35,7 +35,7 @@ class AuthService {
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Auth>{
     try {
       const auth= await getRepository(Auth).findOne(id)
       if (!auth) {

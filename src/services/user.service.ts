@@ -48,7 +48,7 @@ class UserService {
     }
   }
 
-  async update(id:number, changes : object) {
+    async update(id:number, changes : object) {
     try {
     const user = await this.findOne(id)
     getRepository(User).merge(user, changes)

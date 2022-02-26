@@ -1,17 +1,23 @@
 {
   "type": "mssql",
-  "host": "scsqlprudiarim",
+  "host": "192.168.18.12",
   "port": 1433,
-  "username": "User_Devops",
-  "password": "123456",
-  "database": "Desarrollo_Forms",
-  "synchronize": true,
+  "username": "hackchan",
+  "password": "F62856far1981**",
+  "database": "appStore",
+  "synchronize": false,
   "retryDelay": 3000,
   "retryAttempts": 10,
 
   "logging": false,
   "entities": ["dist/entity/**/*.js"],
-  "migrations": ["dist/migration/**/*.js"],
-  "subscribers": ["dist/subscriber/**/*.js"]
+  "migrationsTableName": "migrations",
+  "migrations": ["dist/migration/*.js"],
+  "subscribers": ["dist/subscriber/**/*.js"],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
+  }
 
 }

@@ -5,6 +5,8 @@ import {createConnection} from 'typeorm'
 
 import userRoutes from './routes/user.routes'
 import authRoutes from './routes/auth.routes'
+import departmentRoutes from './routes/deparment.routes'
+import satelitalsRoutes from './routes/satelital.routes'
 import {
   boomErroHandler,
   errorHandler,
@@ -19,6 +21,8 @@ app.use(morgan('dev'));
 // routes
 app.use(userRoutes);
 app.use(authRoutes);
+app.use(departmentRoutes);
+app.use(satelitalsRoutes)
 
 //errors
 //app.use(logError)
@@ -33,8 +37,14 @@ process.on('SIGTERM', () => {
     console.log('Process terminated')
   })
 })
+process.on('uncaughtException', function(e) {
+    console.log('Uncaught Exception...');
+    console.log(e.stack);
+    process.exit(99);
+  });
 }).catch((err)=>{
   console.log(err)
+  process.kill(process.pid, 'uncaughtException')
   process.kill(process.pid, 'SIGTERM')
 })
 
