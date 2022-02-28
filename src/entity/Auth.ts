@@ -29,9 +29,9 @@ export class Auth {
   role: string[];
 
 
-     @OneToOne(() => User,user => user.auth,{cascade:true,onDelete: "CASCADE"})
-     @JoinColumn({name:'user_id'})
-     user: User;
+  @OneToOne(() => User,user => user.auth,{cascade:true,onDelete: "CASCADE"})
+  @JoinColumn({name:'user_id'})
+  user: User;
 
   // @OneToOne(() => User, user => user.auth,{ onDelete: "CASCADE"}) // specify inverse side as a second parameter
   // user: User;

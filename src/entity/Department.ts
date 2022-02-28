@@ -2,6 +2,7 @@ import {Entity, Column, PrimaryGeneratedColumn, Index,OneToOne,CreateDateColumn,
 import {IsLatitude, IsLongitude} from 'class-validator';
 import {Satelital} from './Satelital'
 import {User} from './User'
+import {Entidad} from './Entidad'
 @Entity()
 export class Department {
   @PrimaryGeneratedColumn()
@@ -28,6 +29,9 @@ export class Department {
    @ManyToOne(()=> User, (user)=>user.departments)
    @JoinColumn({name:'user_id'})
    user:User
+
+   @OneToMany(()=> Entidad, entidad=>entidad.departamento,{cascade:true})
+   entidades: Entidad[]
 
   // @OneToOne(() => Auth,auth => auth.user,{cascade:true,onDelete: "CASCADE"})
   // @JoinColumn({name:'auth_id'})
