@@ -45,7 +45,7 @@ export const updateSaltelital = async ( req: Request, res: Response, next:NextFu
 
 export const deleteSaltelital = async ( req: Request, res: Response, next:NextFunction ) =>{
   try {
-       const Saltelital = await saltelitalService.delete(Number(req.params.id))
+      const Saltelital = await saltelitalService.delete(Number(req.params.id))
       success(req, res, Saltelital)
 
  } catch (error) {

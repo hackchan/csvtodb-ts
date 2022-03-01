@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne} from 'typeorm'
-import {IsEmail, IsUrl, IsOptional} from "class-validator";
+import {IsInt, Min, Max} from "class-validator";
 import {Auth} from './Auth'
 import {Tipoentidad } from './TipoEntidad';
 import {Department} from './Department';
@@ -22,8 +22,17 @@ export class Entidad {
   @Column({nullable:false})
   capital: boolean=false;
 
-  @Column({nullable:false, unique:true})
+  @Column({nullable:true, unique:true})
+  cgn: string;
+
+  @Column({nullable:true, unique:true})
   divipola: string;
+
+  @Column({nullable:true})
+  @IsInt()
+  @Min(1)
+  @Max(6)
+  categoria: number;
 
   @ManyToOne(()=> Tipoentidad, (tipoentidad)=>tipoentidad.entidades)
   @JoinColumn({name:'tipoentidad_id'})

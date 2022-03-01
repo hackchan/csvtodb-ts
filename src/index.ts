@@ -8,6 +8,8 @@ import departmentRoutes from './routes/deparment.routes'
 import satelitalsRoutes from './routes/satelital.routes'
 import sectorRouter from './routes/sector.routes'
 import subsectorRouter from './routes/subsector.routes'
+import tipoentidad from './routes/tipoentidad.routes'
+import entidad from './routes/entidad.routes'
 import {
   boomErroHandler,
   errorHandler,
@@ -27,6 +29,8 @@ app.use(departmentRoutes)
 app.use(satelitalsRoutes)
 app.use(sectorRouter)
 app.use(subsectorRouter)
+app.use(tipoentidad)
+app.use(entidad)
 
 //errors
 //app.use(logError)

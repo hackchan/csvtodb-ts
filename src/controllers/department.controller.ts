@@ -45,7 +45,7 @@ export const updateDeparment = async ( req: Request, res: Response, next:NextFun
 
 export const deleteDeparment = async ( req: Request, res: Response, next:NextFunction ) =>{
   try {
-       const Deparment = await deparmentService.delete(Number(req.params.id))
+      const Deparment = await deparmentService.delete(Number(req.params.id))
       success(req, res, Deparment)
 
  } catch (error) {

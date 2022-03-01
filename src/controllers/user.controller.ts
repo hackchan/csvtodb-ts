@@ -26,11 +26,9 @@ export const getUser = async ( req: Request, res: Response, next:NextFunction ) 
 export const createUser = async ( req: Request, res: Response, next:NextFunction ) =>{
   try {
       const user = await userService.create(req.body)
-      console.log('user:', user)
       success(req, res, user)
 
  } catch (error) {
-    console.log('test:', error)
     next(error)
  }
 }
