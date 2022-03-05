@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne,OneToMany} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne,OneToMany, ManyToMany} from 'typeorm'
 import {IsInt, Min, Max} from "class-validator";
 import {Auth} from '../auth/Auth'
 import {Tipoentidad } from './TipoEntidad';
@@ -6,6 +6,7 @@ import {Department} from './Department';
 import {Subsector} from './Subsector';
 import {Email} from './Email'
 import {Telefono} from './Telefono'
+import { Proyectado } from '../proyeccion/Proyectado';
 @Entity()
 export class Entidad {
   @PrimaryGeneratedColumn()
@@ -56,4 +57,10 @@ export class Entidad {
 
   @OneToMany(()=> Telefono, telefono => telefono.entidad,{cascade:true})
   telefonos: Telefono[]
+
+  @OneToMany(()=>Proyectado, proyectado =>proyectado.entidad)
+  proyectados:Proyectado[]
+
+  // @ManyToMany(()=>Sigedoc, sigedoc => sigedoc.entidades)
+  // sigedocs: Sigedoc[]
 }

@@ -1,7 +1,8 @@
-import {Entity, Column, PrimaryGeneratedColumn, Index,OneToOne,CreateDateColumn,UpdateDateColumn, JoinColumn, OneToMany} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, Index,OneToOne,CreateDateColumn,UpdateDateColumn, JoinColumn, OneToMany, ManyToOne} from 'typeorm'
 import {IsEmail, IsUrl, IsOptional} from "class-validator";
 import {Auth} from './Auth'
 import { Department } from '../entidad/Department';
+import { TypeUser } from './TypeUser';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -16,9 +17,6 @@ export class User {
   @Column({nullable:false,  unique: true})
   phone: string;
 
-  @Column({nullable:false})
-  tipo: string;
-
   @Column({nullable:false, unique:true})
   @IsEmail()
   email: string;
@@ -29,21 +27,20 @@ export class User {
   @IsUrl()
   image?: string;
 
-
   @CreateDateColumn()
   createdAt?: Date;
 
   @UpdateDateColumn()
   updatedAt?: Date
 
-  // @OneToOne(() => Auth,auth => auth.user,{cascade:true,onDelete: "CASCADE"})
-  // @JoinColumn({name:'auth_id'})
-  // auth: Auth;
+  @OneToOne(() => Auth, auth => auth.user,{ onDelete: "CASCADE"})
+  auth: Auth;
 
-   @OneToOne(() => Auth, auth => auth.user,{ onDelete: "CASCADE"}) // specify inverse side as a second parameter
-   auth: Auth;
+  @OneToMany(()=> Department, department=> department.user)
+  departments: Department[]
 
-   @OneToMany(()=> Department, department=> department.user)
-   departments: Department[]
+  @ManyToOne(()=>TypeUser, typeuser=>typeuser.users)
+  tipo:TypeUser
+
 }
 

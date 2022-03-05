@@ -33,14 +33,6 @@ export class Auth {
   @JoinColumn({name:'user_id'})
   user: User;
 
-  // @OneToOne(() => User, user => user.auth,{ onDelete: "CASCADE"}) // specify inverse side as a second parameter
-  // user: User;
-
-  //  async updatePassword(password:any): Promise<void> {
-  //   if (!!password) {
-  //     this.password = await bcrypt.hash(password, 10);
-  //   }
-  // }
 
 }
 

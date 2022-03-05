@@ -1,8 +1,6 @@
-import {Entity, Column, PrimaryGeneratedColumn,JoinColumn, OneToMany} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn,JoinColumn, OneToMany, OneToOne} from 'typeorm'
 import {IsEmail, IsUrl, IsOptional} from "class-validator";
 import { Sigedoc } from './Sigedoc';
-
-
 @Entity()
 export class Requerimiento {
   @PrimaryGeneratedColumn()
@@ -11,7 +9,8 @@ export class Requerimiento {
   @Column({nullable:false, unique:true})
   name: string;
 
-  @OneToMany(()=>Sigedoc, (sigedoc)=> sigedoc.requerimiento)
-  sigedocs: Sigedoc[]
+  @OneToOne(()=>Sigedoc, (sigedoc)=> sigedoc.requerimiento)
+  @JoinColumn({name:'sigedoc_id'})
+  sigedoc: Sigedoc
 
 }

@@ -5,7 +5,7 @@ import {Entidad} from '../entidad/Entidad'
 import {User} from '../auth/User'
 import {Vigencia} from './Vigencia'
 import { Requerimiento } from '../proyeccion/Requerimiento';
-import { Ejecucioningreso } from '../reportes/Ejecucioningreso';
+import { Ejecucioningreso } from '../matrices/Ejecucioningreso';
 @Entity()
 export class Estructuracion {
   @PrimaryGeneratedColumn()
@@ -47,7 +47,7 @@ export class Estructuracion {
   requerimiento: Requerimiento
 
 
-   @OneToOne(() => Ejecucioningreso, ejecucion => ejecucion.estructura,{ onDelete: "CASCADE"}) // specify inverse side as a second parameter
+   @OneToOne(() => Ejecucioningreso, ejecucion => ejecucion.estructura,{ onDelete: "CASCADE"})
    ejecucionIngreso: Ejecucioningreso;
 
 

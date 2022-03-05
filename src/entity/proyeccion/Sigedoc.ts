@@ -1,8 +1,8 @@
-import {Entity, Column, PrimaryGeneratedColumn,JoinColumn, ManyToOne, ManyToMany} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany,JoinTable, OneToMany} from 'typeorm'
 import {IsEmail, IsUrl, IsOptional} from "class-validator";
 import { Requerimiento } from './Requerimiento';
-
-
+import { Entidad } from '../entidad/Entidad';
+import { Proyectado } from './Proyectado';
 @Entity()
 export class Sigedoc {
   @PrimaryGeneratedColumn()
@@ -17,8 +17,21 @@ export class Sigedoc {
   @IsUrl()
   image?: string;
 
-  @ManyToOne(()=>Requerimiento, requerimiento=> requerimiento.sigedocs)
+  @ManyToOne(()=>Requerimiento, requerimiento=> requerimiento.sigedoc,{ onDelete: "CASCADE"})
   requerimiento: Requerimiento
 
+  @OneToMany(()=>Proyectado, proyectado =>proyectado.sigedoc)
+  proyectados:Proyectado[]
 
+  // @ManyToMany(()=>Entidad, entidad=>entidad.sigedocs)
+  // @JoinTable({
+  //   name:'proyeccion',
+  //   joinColumn:{
+  //     name:'sigedoc_id'
+  //   },
+  //   inverseJoinColumn:{
+  //   name:'entidad_id'
+  //   }
+  // })
+  // entidades: Entidad[]
 }

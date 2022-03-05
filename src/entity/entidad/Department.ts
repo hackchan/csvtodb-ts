@@ -33,10 +33,4 @@ export class Department {
    @OneToMany(()=> Entidad, entidad=>entidad.departamento,{cascade:true})
    entidades: Entidad[]
 
-  // @OneToOne(() => Auth,auth => auth.user,{cascade:true,onDelete: "CASCADE"})
-  // @JoinColumn({name:'auth_id'})
-  // auth: Auth;
-
-  //  @OneToOne(() => Auth, auth => auth.user,{ onDelete: "CASCADE"}) // specify inverse side as a second parameter
-  //  auth: Auth;
 }
