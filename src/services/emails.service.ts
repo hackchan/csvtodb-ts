@@ -1,22 +1,22 @@
 import { getRepository } from "typeorm";
-import { Sector } from "../entity/entidad/Sector";
+import { Email } from "../entity/entidad/Email";
 import boom from '@hapi/boom'
 import { validate } from "class-validator";
 
-class SectorService {
+class EmailService {
   constructor(){
 
   }
   async create(data:object) {
    try {
-    const repo = getRepository(Sector)
-    const newSector= repo.create(data)
-    const errors = await validate(newSector)
+    const repo = getRepository(Email)
+    const newEmail= repo.create(data)
+    const errors = await validate(newEmail)
     if(errors.length !== 0) {
       const {constraints}=errors[0]
       throw [constraints]
     }
-    const result = await repo.save(newSector)
+    const result = await repo.save(newEmail)
     return result
    } catch (error) {
      throw error
@@ -25,7 +25,7 @@ class SectorService {
 
   async findAll() {
     try {
-     const Sectors= await getRepository(Sector).find({relations:['subsectores']})
+     const Sectors= await getRepository(Email).find({relations:['entidad']})
     //  const Sectors = await  getRepository(Sector)
     //  .createQueryBuilder("Sector")
     //  .leftJoinAndSelect("Sector.auth", "auth")
@@ -38,9 +38,9 @@ class SectorService {
 
   async findOne(id: number) {
     try {
-      const sector= await getRepository(Sector).findOne(id)
+      const sector= await getRepository(Email).findOne(id,{relations:['entidad']})
       if (!sector) {
-        throw boom.notFound('sector no encontrado')
+        throw boom.notFound('Email no encontrado')
       }
       return sector
     } catch (error) {
@@ -50,9 +50,9 @@ class SectorService {
 
     async update(id:number, changes : object) {
     try {
-    const sector = await this.findOne(id)
-    getRepository(Sector).merge(sector, changes)
-    const result = await getRepository(Sector).save(sector)
+    const email = await this.findOne(id)
+    getRepository(Email).merge(email, changes)
+    const result = await getRepository(Email).save(email)
     return result
     } catch (error) {
       throw error
@@ -61,8 +61,8 @@ class SectorService {
 
   async delete(id:number) {
     try {
-      const sector = await this.findOne(id)
-      const result = await getRepository(Sector).remove(sector)
+      const email = await this.findOne(id)
+      const result = await getRepository(Email).remove(email)
       return result
     } catch (error) {
       throw error
@@ -70,4 +70,4 @@ class SectorService {
   }
 }
 
-export default SectorService
+export default EmailService

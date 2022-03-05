@@ -6,8 +6,13 @@ CSVTODB es un programa para estructurar arhivos csv a una base de datos.
 
 ### Instalación 🔧
 
-```
+```js
 npm install
+npm run migration:generate -- initial-model
+npm run migration:run
+npm run migration:create -- builk-data
+npm run migration:run
+npm run dev
 ```
 
 ## Construido con 🛠️

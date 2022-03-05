@@ -10,6 +10,8 @@ import sectorRouter from './routes/sector.routes'
 import subsectorRouter from './routes/subsector.routes'
 import tipoentidad from './routes/tipoentidad.routes'
 import entidad from './routes/entidad.routes'
+import telefono from './routes/telefono.routes'
+import email from './routes/email.routes'
 import {
   boomErroHandler,
   errorHandler,
@@ -31,6 +33,8 @@ app.use(sectorRouter)
 app.use(subsectorRouter)
 app.use(tipoentidad)
 app.use(entidad)
+app.use(telefono)
+app.use(email)
 
 //errors
 //app.use(logError)

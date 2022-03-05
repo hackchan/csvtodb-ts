@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { Department  } from "../entity/Department";
+import { Department  } from "../entity/entidad/Department";
 import boom from '@hapi/boom'
 import { validate } from "class-validator";
 
@@ -25,7 +25,7 @@ class DeparmentService {
 
   async findAll() {
     try {
-     const Deparments= await getRepository(Department).find({relations:['user','satelital']})
+     const Deparments= await getRepository(Department).find({relations:['user','satelital','entidades']})
     //  const Deparments = await  getRepository(Deparment)
     //  .createQueryBuilder("Deparment")
     //  .leftJoinAndSelect("Deparment.auth", "auth")
@@ -36,9 +36,9 @@ class DeparmentService {
     }
   }
 
-  async findOne(id: number) {
+  async findOne(id: number,) {
     try {
-      const deparment= await getRepository(Department).findOne(id)
+      const deparment= await getRepository(Department).findOne(id,{relations:['user','satelital','entidades']})
       if (!deparment) {
         throw boom.notFound('departamento no encontrado')
       }

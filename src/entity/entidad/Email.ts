@@ -10,8 +10,8 @@ export class Email {
   @IsEmail()
   email: string;
 
-  @ManyToOne(()=> Entidad, entidad=> entidad.emails)
-  @JoinColumn({name:'email_id'})
+  @ManyToOne(()=> Entidad, entidad=> entidad.emails,{nullable:false})
+  @JoinColumn({name:'entidad_id'})
   entidad: Entidad
 
 }

@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { Satelital } from "../entity/Satelital";
+import { Satelital } from "../entity/entidad/Satelital";
 import boom from '@hapi/boom'
 import { validate } from "class-validator";
 

@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne,OneToMany} from 'typeorm'
 import {IsInt, Min, Max} from "class-validator";
-import {Auth} from './Auth'
+import {Auth} from '../auth/Auth'
 import {Tipoentidad } from './TipoEntidad';
 import {Department} from './Department';
 import {Subsector} from './Subsector';
@@ -12,7 +12,7 @@ export class Entidad {
   id: number;
 
   @Column({nullable:false, unique:true})
-  nit: string;
+  nit: number;
 
   @Column({nullable:false})
   name: string;
@@ -31,7 +31,7 @@ export class Entidad {
 
   @Column({nullable:true})
   @IsInt()
-  @Min(1)
+  @Min(0)
   @Max(6)
   categoria: number;
 
@@ -39,15 +39,15 @@ export class Entidad {
   @JoinColumn({name:'tipoentidad_id'})
   tipoentidad:Tipoentidad
 
-  @OneToOne(() => Auth,{ onDelete: "CASCADE"}) // specify inverse side as a second
-  @JoinColumn({name:'auth_id'})
-  auth: Auth;
+  // @OneToOne(() => Auth,{ onDelete: "CASCADE"}) // specify inverse side as a second
+  // @JoinColumn({name:'auth_id'})
+  // auth: Auth;
 
-  @ManyToOne(()=> Department, department=> department.entidades)
+  @ManyToOne(()=> Department, department=> department.entidades,{nullable:false})
   @JoinColumn({name:'depart_id'})
   departamento: Department
 
-  @ManyToOne(()=> Subsector)
+  @ManyToOne(()=> Subsector, subsector=> subsector.entidad,{nullable:false})
   @JoinColumn({name:'subsector_id'})
   subsector: Subsector
 

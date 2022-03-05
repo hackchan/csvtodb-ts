@@ -1,22 +1,22 @@
 import { getRepository } from "typeorm";
-import { Sector } from "../entity/entidad/Sector";
+import { Telefono } from "../entity/entidad/Telefono";
 import boom from '@hapi/boom'
 import { validate } from "class-validator";
 
-class SectorService {
+class TelefonoService {
   constructor(){
 
   }
   async create(data:object) {
    try {
-    const repo = getRepository(Sector)
-    const newSector= repo.create(data)
-    const errors = await validate(newSector)
+    const repo = getRepository(Telefono)
+    const newTelefono= repo.create(data)
+    const errors = await validate(newTelefono)
     if(errors.length !== 0) {
       const {constraints}=errors[0]
       throw [constraints]
     }
-    const result = await repo.save(newSector)
+    const result = await repo.save(newTelefono)
     return result
    } catch (error) {
      throw error
@@ -25,12 +25,12 @@ class SectorService {
 
   async findAll() {
     try {
-     const Sectors= await getRepository(Sector).find({relations:['subsectores']})
+     const telefonos= await getRepository(Telefono).find({relations:['entidad']})
     //  const Sectors = await  getRepository(Sector)
     //  .createQueryBuilder("Sector")
     //  .leftJoinAndSelect("Sector.auth", "auth")
     //  .getMany();
-     return Sectors
+     return telefonos
     } catch (error) {
       throw error
     }
@@ -38,9 +38,9 @@ class SectorService {
 
   async findOne(id: number) {
     try {
-      const sector= await getRepository(Sector).findOne(id)
+      const sector= await getRepository(Telefono).findOne(id,{relations:['entidad']})
       if (!sector) {
-        throw boom.notFound('sector no encontrado')
+        throw boom.notFound('Telefono no encontrado')
       }
       return sector
     } catch (error) {
@@ -50,9 +50,9 @@ class SectorService {
 
     async update(id:number, changes : object) {
     try {
-    const sector = await this.findOne(id)
-    getRepository(Sector).merge(sector, changes)
-    const result = await getRepository(Sector).save(sector)
+    const telefono = await this.findOne(id)
+    getRepository(Telefono).merge(telefono, changes)
+    const result = await getRepository(Telefono).save(telefono)
     return result
     } catch (error) {
       throw error
@@ -61,8 +61,8 @@ class SectorService {
 
   async delete(id:number) {
     try {
-      const sector = await this.findOne(id)
-      const result = await getRepository(Sector).remove(sector)
+      const telefono = await this.findOne(id)
+      const result = await getRepository(Telefono).remove(telefono)
       return result
     } catch (error) {
       throw error
@@ -70,4 +70,4 @@ class SectorService {
   }
 }
 
-export default SectorService
+export default TelefonoService

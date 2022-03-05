@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { User } from "../entity/User";
+import { User } from "../entity/auth/User";
 import boom from '@hapi/boom'
 import { validate } from "class-validator";
 

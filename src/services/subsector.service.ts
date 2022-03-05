@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { Subsector } from "../entity/Subsector";
+import { Subsector } from "../entity/entidad/Subsector";
 import boom from '@hapi/boom'
 import { validate } from "class-validator";
 
@@ -25,7 +25,7 @@ class SubsectorService {
 
   async findAll() {
     try {
-     const Sectors= await getRepository(Subsector).find({relations:['sector']})
+     const Sectors= await getRepository(Subsector).find({relations:['sector','entidad']})
     //  const Sectors = await  getRepository(Sector)
     //  .createQueryBuilder("Sector")
     //  .leftJoinAndSelect("Sector.auth", "auth")
@@ -38,7 +38,7 @@ class SubsectorService {
 
   async findOne(id: number) {
     try {
-      const sector= await getRepository(Subsector).findOne(id)
+      const sector= await getRepository(Subsector).findOne(id,{relations:['sector','entidad']})
       if (!sector) {
         throw boom.notFound('subsector no encontrado')
       }

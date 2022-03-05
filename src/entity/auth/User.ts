@@ -1,7 +1,7 @@
 import {Entity, Column, PrimaryGeneratedColumn, Index,OneToOne,CreateDateColumn,UpdateDateColumn, JoinColumn, OneToMany} from 'typeorm'
 import {IsEmail, IsUrl, IsOptional} from "class-validator";
 import {Auth} from './Auth'
-import { Department } from './Department';
+import { Department } from '../entidad/Department';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -14,8 +14,10 @@ export class User {
   lastName: string;
 
   @Column({nullable:false,  unique: true})
-
   phone: string;
+
+  @Column({nullable:false})
+  tipo: string;
 
   @Column({nullable:false, unique:true})
   @IsEmail()

@@ -1,5 +1,5 @@
 
-import { Satelital } from "../entity/Satelital";
+import { Satelital } from "../entity/entidad/Satelital";
 import { getRepository } from "typeorm";
 export const seed = () => {
    getRepository(Satelital).createQueryBuilder("satelital").insert().into(Satelital)

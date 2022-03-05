@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne,JoinColumn} from 'typeorm'
 import { Entidad } from './Entidad';
 
 
@@ -16,6 +16,7 @@ export class Telefono {
   @Column({nullable: true})
   cargo: string;
 
-  @ManyToOne(()=>Entidad, entidad => entidad.telefonos)
+  @ManyToOne(()=>Entidad, entidad => entidad.telefonos,{nullable:false})
+  @JoinColumn({name:'entidad_id'})
   entidad: Entidad
 }

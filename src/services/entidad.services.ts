@@ -1,5 +1,5 @@
 import { getRepository } from "typeorm";
-import { Entidad } from "../entity/Entidad";
+import { Entidad } from "../entity/entidad/Entidad";
 import boom from '@hapi/boom'
 import { validate } from "class-validator";
 
@@ -25,7 +25,7 @@ class EntidadService {
 
   async findAll() {
     try {
-     const Entidads= await getRepository(Entidad).find()
+     const Entidads= await getRepository(Entidad).find({relations:['emails','telefonos','departamento','tipoentidad','auth','subsector']})
     //  const Deparments = await  getRepository(Deparment)
     //  .createQueryBuilder("Deparment")
     //  .leftJoinAndSelect("Deparment.auth", "auth")
@@ -38,7 +38,7 @@ class EntidadService {
 
   async findOne(id: number) {
     try {
-      const entidad= await getRepository(Entidad).findOne(id)
+      const entidad= await getRepository(Entidad).findOne(id,{relations:['emails','telefonos','departamento','tipoentidad','auth','subsector']})
       if (!entidad) {
         throw boom.notFound('Entidad no encontrada')
       }

@@ -1,7 +1,7 @@
 import {Entity, Column, PrimaryGeneratedColumn, Index,OneToOne,CreateDateColumn,UpdateDateColumn, JoinColumn, OneToMany, ManyToOne} from 'typeorm'
 import {IsLatitude, IsLongitude} from 'class-validator';
 import {Satelital} from './Satelital'
-import {User} from './User'
+import {User} from '../auth/User'
 import {Entidad} from './Entidad'
 @Entity()
 export class Department {
