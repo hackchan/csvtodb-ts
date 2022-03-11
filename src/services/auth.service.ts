@@ -2,14 +2,20 @@ import { getRepository } from "typeorm";
 import { Auth } from "../entity/auth/Auth";
 import boom from '@hapi/boom'
 import { validate } from "class-validator";
+import bcrypt = require('bcrypt')
 
+// export interface AuthInterface {
+//    username: string;
+//    password: string;
+//    role: Array<string>;
+//    user:Object
+// }
 class AuthService {
   constructor(){
 
   }
-  async create(data:object): Promise<Auth> {
+  async create(data: any): Promise<any> {
    try {
-
     const repo = getRepository(Auth)
     const auth = repo.create(data)
     const errors = await validate(auth)
@@ -18,9 +24,14 @@ class AuthService {
       console.log(constraints)
       throw [constraints]
     }
-    const newAuth= repo.create(data)
+
+    const hash = await bcrypt.hash(data.password,10)
+    const newAuth= repo.create({...data, password:hash})
     const result = await repo.save(newAuth)
-    return result
+    const response = JSON.parse(JSON.stringify(result))
+    delete response.password
+    console.log(response)
+    return response
    } catch (error) {
      throw error
    }

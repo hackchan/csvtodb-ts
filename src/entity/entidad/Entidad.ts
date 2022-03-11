@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToOne,OneToMany, ManyToMany} from 'typeorm'
 import {IsInt, Min, Max} from "class-validator";
-import {Auth} from '../auth/Auth'
+import {Agenda} from '../reuniones/Agenda'
 import {Tipoentidad } from './TipoEntidad';
 import {Department} from './Department';
 import {Subsector} from './Subsector';
@@ -23,6 +23,9 @@ export class Entidad {
 
   @Column({nullable:false})
   capital: boolean=false;
+
+  @Column({nullable:false})
+  priority: boolean=false;
 
   @Column({nullable:true, unique:true})
   cgn: string;
@@ -61,6 +64,6 @@ export class Entidad {
   @OneToMany(()=>Proyectado, proyectado =>proyectado.entidad)
   proyectados:Proyectado[]
 
-  // @ManyToMany(()=>Sigedoc, sigedoc => sigedoc.entidades)
-  // sigedocs: Sigedoc[]
+  @ManyToMany(()=>Agenda, agenda => agenda.entidades)
+  agendas: Agenda[]
 }

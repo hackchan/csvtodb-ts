@@ -33,13 +33,14 @@ export class User {
   @UpdateDateColumn()
   updatedAt?: Date
 
-  @OneToOne(() => Auth, auth => auth.user,{ onDelete: "CASCADE"})
+  @OneToOne(() => Auth, auth => auth.user,{nullable:true,  onDelete: "SET NULL",onUpdate:"CASCADE"})
   auth: Auth;
 
   @OneToMany(()=> Department, department=> department.user)
   departments: Department[]
 
-  @ManyToOne(()=>TypeUser, typeuser=>typeuser.users)
+  @ManyToOne(()=>TypeUser, typeuser=>typeuser.users,{nullable:false,onDelete: "CASCADE",onUpdate:"CASCADE"})
+  @JoinColumn({name:'type_id'})
   tipo:TypeUser
 
 }

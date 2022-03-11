@@ -12,12 +12,32 @@ import tipoentidad from './routes/tipoentidad.routes'
 import entidad from './routes/entidad.routes'
 import telefono from './routes/telefono.routes'
 import email from './routes/email.routes'
+import typeuser from './routes/tipouser.routes'
+import './utils/auth'
 import {
   boomErroHandler,
   errorHandler,
 } from './middlewares/errors'
 const app = express()
 createConnection().then(async connection=>{
+
+process.on('SIGTERM', () => {
+  server.close(() => {
+    console.log('Process terminated')
+  })
+})
+process.on('uncaughtException', function(e) {
+    console.log('Uncaught Exception...');
+    console.log(e.stack);
+    process.exit(99);
+  });
+}).catch((err)=>{
+  console.log(err)
+  process.kill(process.pid, 'uncaughtException')
+  process.kill(process.pid, 'SIGTERM')
+})
+
+
   // Middlewares
 
 app.use(cors());
@@ -35,6 +55,7 @@ app.use(tipoentidad)
 app.use(entidad)
 app.use(telefono)
 app.use(email)
+app.use(typeuser)
 
 //errors
 //app.use(logError)
@@ -44,21 +65,6 @@ app.use(errorHandler)
 const server = app.listen(3000, ()=>{
   console.log('Server on port', 3000);
 });
-process.on('SIGTERM', () => {
-  server.close(() => {
-    console.log('Process terminated')
-  })
-})
-process.on('uncaughtException', function(e) {
-    console.log('Uncaught Exception...');
-    console.log(e.stack);
-    process.exit(99);
-  });
-}).catch((err)=>{
-  console.log(err)
-  process.kill(process.pid, 'uncaughtException')
-  process.kill(process.pid, 'SIGTERM')
-})
 
 
 

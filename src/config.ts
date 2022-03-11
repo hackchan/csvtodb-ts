@@ -12,5 +12,8 @@ export default {
     dbName: process.env.DB_NAME,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT
+  },
+  api:{
+    key:process.env.API_KEY
   }
 }

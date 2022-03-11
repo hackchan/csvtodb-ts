@@ -1,7 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn,ManyToOne,JoinColumn, OneToMany} from 'typeorm'
 import {IsEmail, IsUrl, IsOptional} from "class-validator";
 import { Modelo } from './Modelo';
-import { Mode } from 'fs';
 import { Reporte } from './Reporte';
 
 @Entity()

@@ -29,7 +29,7 @@ export class Auth {
   role: string[];
 
 
-  @OneToOne(() => User,user => user.auth,{cascade:true,onDelete: "CASCADE"})
+  @OneToOne(() => User,user => user.auth,{cascade:true,nullable:false,onUpdate: "CASCADE", onDelete:"CASCADE"})
   @JoinColumn({name:'user_id'})
   user: User;
 

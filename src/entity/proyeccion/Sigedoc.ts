@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany,JoinTable, OneToMany} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany,JoinTable, OneToMany,OneToOne, JoinColumn} from 'typeorm'
 import {IsEmail, IsUrl, IsOptional} from "class-validator";
 import { Requerimiento } from './Requerimiento';
 import { Entidad } from '../entidad/Entidad';
@@ -18,6 +18,7 @@ export class Sigedoc {
   image?: string;
 
   @ManyToOne(()=>Requerimiento, requerimiento=> requerimiento.sigedoc,{ onDelete: "CASCADE"})
+  @JoinColumn({name:'requerimiento_id'})
   requerimiento: Requerimiento
 
   @OneToMany(()=>Proyectado, proyectado =>proyectado.sigedoc)

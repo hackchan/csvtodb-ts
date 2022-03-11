@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne,JoinColumn} from 'typeorm'
-import { Entidad } from './Entidad';
+import { Entidad } from './Entidad'; 
 @Entity()
 export class Telefono {
   @PrimaryGeneratedColumn()

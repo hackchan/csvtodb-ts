@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import {success} from '../utils/response'
 import AuthService from '../services/auth.service'
-
 const authService = new AuthService()
 export const getAuths= async ( req: Request, res: Response, next:NextFunction ) =>{
   try {
@@ -47,6 +46,16 @@ export const deleteAuth = async ( req: Request, res: Response, next:NextFunction
   try {
       const auth = await authService.delete(Number(req.params.id))
       success(req, res, auth)
+
+ } catch (error) {
+    next(error)
+ }
+}
+
+export const loginAuth = async ( req: Request, res: Response, next:NextFunction ) =>{
+  try {
+
+      success(req, res, req.user)
 
  } catch (error) {
     next(error)

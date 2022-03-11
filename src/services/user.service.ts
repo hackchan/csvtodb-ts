@@ -48,6 +48,19 @@ class UserService {
     }
   }
 
+   async findByUserName(username: string) {
+    try {
+      const user= await getRepository(User).findOne({relations:['auth'],where:{auth:{username}}},)
+      if (!user) {
+        throw boom.notFound('usuario no encontrado')
+      }
+      const response = JSON.parse(JSON.stringify(user))
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+
     async update(id:number, changes : object) {
     try {
     const user = await this.findOne(id)
