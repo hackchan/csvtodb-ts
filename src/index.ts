@@ -1,18 +1,11 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
+import routers from './utils/router'
+import passport from "passport";
+import {checkApiKey,checkRoles} from './middlewares/auth'
 import {createConnection} from 'typeorm'
-import userRoutes from './routes/user.routes'
-import authRoutes from './routes/auth.routes'
-import departmentRoutes from './routes/deparment.routes'
-import satelitalsRoutes from './routes/satelital.routes'
-import sectorRouter from './routes/sector.routes'
-import subsectorRouter from './routes/subsector.routes'
-import tipoentidad from './routes/tipoentidad.routes'
-import entidad from './routes/entidad.routes'
-import telefono from './routes/telefono.routes'
-import email from './routes/email.routes'
-import typeuser from './routes/tipouser.routes'
+
 import './utils/auth'
 import {
   boomErroHandler,
@@ -37,25 +30,15 @@ process.on('uncaughtException', function(e) {
   process.kill(process.pid, 'SIGTERM')
 })
 
-
-  // Middlewares
-
+// Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
 // routes
-app.use(userRoutes)
-app.use(authRoutes)
-app.use(departmentRoutes)
-app.use(satelitalsRoutes)
-app.use(sectorRouter)
-app.use(subsectorRouter)
-app.use(tipoentidad)
-app.use(entidad)
-app.use(telefono)
-app.use(email)
-app.use(typeuser)
+
+
+routers(app)
 
 //errors
 //app.use(logError)

@@ -14,6 +14,7 @@ export default {
     dialect: process.env.DB_DIALECT
   },
   api:{
-    key:process.env.API_KEY
+    key:process.env.API_KEY,
+    jwt:process.env.JWT_SECRET
   }
 }

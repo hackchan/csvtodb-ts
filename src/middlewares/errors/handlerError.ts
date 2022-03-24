@@ -2,6 +2,7 @@ import { error } from '../../utils/response'
 import config from '../../config'
 import { Request, Response} from "express";
 export function errorHandler(err: any, req: Request, res:Response, next:any) {
+  console.log('el error:', err)
   type ErrorType = {
     statusCode: number,
     message: any

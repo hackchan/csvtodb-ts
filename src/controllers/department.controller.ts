@@ -3,6 +3,7 @@ import {success} from '../utils/response'
 import DeparmentService from '../services/department.service'
 
 const deparmentService = new DeparmentService()
+
 export const getDeparments = async ( req: Request, res: Response, next:NextFunction ) =>{
   try {
       const Deparments= await deparmentService.findAll()

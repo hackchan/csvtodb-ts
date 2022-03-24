@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import {success} from '../utils/response'
+import config from '../config'
 import AuthService from '../services/auth.service'
 const authService = new AuthService()
+const jwt = require('jsonwebtoken')
 export const getAuths= async ( req: Request, res: Response, next:NextFunction ) =>{
   try {
       const auths= await authService.findAll()
@@ -52,12 +54,18 @@ export const deleteAuth = async ( req: Request, res: Response, next:NextFunction
  }
 }
 
-export const loginAuth = async ( req: Request, res: Response, next:NextFunction ) =>{
-  try {
+// export const loginAuth = async ( req: Request, res: Response, next:NextFunction ) =>{
+//   try {
+//     const user:any = req.user
+//     const payload = {
+//         sub: user.id,
+//         role:user.auth.role
+//       }
+//       const token= jwt.sign(payload, config.api.jwt)
+//       success(req, res, {user, token})
 
-      success(req, res, req.user)
 
- } catch (error) {
-    next(error)
- }
-}
+//  } catch (error) {
+//     next(error)
+//  }
+// }

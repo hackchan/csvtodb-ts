@@ -52,7 +52,7 @@ class UserService {
     try {
       const user= await getRepository(User).findOne({relations:['auth'],where:{auth:{username}}},)
       if (!user) {
-        throw boom.notFound('usuario no encontrado')
+        throw boom.notFound('usuario o clave incorrecta')
       }
       const response = JSON.parse(JSON.stringify(user))
       return response
